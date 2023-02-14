@@ -4,7 +4,7 @@ const { ApolloServer } = require("apollo-server");
 require('dotenv').config();
 
 // Variable Definition
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 8080;
 const APOLLO_KEY = process.env.APOLLO_KEY;
 
 // Apollo Server and Gateway Setup
