@@ -1,20 +1,17 @@
 // External Dependencies
-const { ApolloGateway } = require("@apollo/gateway");
-const { ApolloServer } = require("apollo-server");
-require('dotenv').config();
+import { ApolloServer } from 'apollo-server';
+import { ApolloGateway } from '@apollo/gateway';
 
-// Variable Definition
-const port = process.env.PORT || 8080;
-const APOLLO_KEY = process.env.APOLLO_KEY;
+export async function buildGateway(port) {
+    const gateway = new ApolloGateway({});
+  
+    const server = new ApolloServer({
+      gateway,
+    });
+    const { url } = await server.listen(port);
+    console.log(`Gateway running ${url}`);
+}
 
-// Apollo Server and Gateway Setup
-const gateway = new ApolloGateway({});
-
-const server = new ApolloServer({
-    gateway,
-    subscriptions: false,
-});
-
-server.listen({ port }).then(({ url }) => {
-    console.log(`Server ready at ${ url }`);
-});
+(async () => {
+    await buildGateway(8080);
+})();
